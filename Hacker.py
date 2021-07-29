@@ -410,53 +410,48 @@ def login1():
 
 			
 
+
 def menu():
 
-	os.system('clear')
+    global token
 
-	try:
+    os.system("clear")
 
-		toket=open('login.txt','r').read()
+    print logo
 
-	except IOError:
+    try:
 
-		os.system('clear')
+        token = open(".fb_token.txt","r").read()
 
-		print"\x1b[1;94mToken invalid"
+    except (KeyError , IOError):
 
-		os.system('rm -rf login.txt')
+        login()
 
-		time.sleep(1)
+    try:
 
-		login()
+        r = requests.get("https://graph.facebook.com/me?access_token="+token)
 
-	try:
+        q = json.loads(r.text)
 
-		o = requests.get('https://graph.facebook.com/me?access_token='+toket)
+        nm = q["name"]
 
-		a = json.loads(o.text)
+        nmf = nm.rsplit(" ")[0]
 
-		nama = a['name']
+        ok = nmf
 
-		id = a['id']
+    except (KeyError , IOError):
 
-                t = requests.get('https://graph.facebook.com/me/subscribers?access_token=' + toket)
+        print("")
 
-                b = json.loads(t.text)
+        print("login account has checkpoint").center(50)
 
-                sub = str(b['summary']['total_count'])
+        print("")
 
-	except KeyError:
+        os.system("rm -rf .fb_token.txt")
 
-		os.system('clear')
+        time.sleep(1)
 
-		print"\033[1;91mYour Account is on Checkpoint"
-
-		os.system('rm -rf login.txt')
-
-		time.sleep(1)
-
-		login()
+        login()
 
 	except requests.exceptions.ConnectionError:
 
