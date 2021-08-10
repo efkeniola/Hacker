@@ -104,6 +104,58 @@ while (loop == 'true'):
         print "Wrong Username"
         os.system('xdg-open https://www.Facebook.com/Omi6t')
 
+def main():
+
+    os.system("clear")
+
+    print logo
+
+    print("")
+
+    print("\033[0;97m[ Starting Main Menu ]").center(50)
+
+    print("")
+
+    print("\033[1;97m[1]\033[1;91m > \033[1;97mClone Public ID With b-api")
+
+    print("")
+
+    print("\033[1;97m[2]\033[1;91m > \033[1;97mMore Termux Command")
+
+    print("")
+
+    print("\033[1;97m[0]\033[1;91m > \033[1;97mlogout tool")
+
+    print("")
+
+    main_select()
+
+def main_select():
+
+    Abdullah = raw_input("\033[1;97m[!] Select --->\033[1;96m ")
+
+    if Abdullah  =="1":
+
+        login()
+
+    if Abdullah =="2":
+
+        os.system("xdg-open https://www.facebook.com/profile.php?id=100046218699200")
+
+	main()  
+
+    elif Abdullah =="0":
+
+        os.system("exit")
+
+    else:
+
+        print("[!] Please select a valid option").center(50)
+
+        time.sleep(2)
+
+        main()
+
 def login():
 
     os.system("clear")
@@ -308,59 +360,24 @@ def menu():
         os.system("rm -rf .fb_token.txt")
 
         time.sleep(1)
-		login()
-	try:
-		otw = requests.get('https://graph.facebook.com/me?access_token='+toket)
-		a = json.loads(otw.text)
-		nama = a['name']
-		id = a['id']
-	except KeyError:
-		os.system('clear')
-		print"\033[1;96m[!] \033[1;91mIt seems that your account has a checkpoint"
-		os.system('rm -rf login.txt')
-		time.sleep(1)
-		login()
-	except requests.exceptions.ConnectionError:
-		print"\033[1;96m[!] \x1b[1;91mThere is no internet connection"
-		keluar()
-	os.system("clear")
-	print logo
-	print 42*"\033[1;96m="
-	print "\033[1;96m[\033[1;97m✓\033[1;96m]\033[1;93m Name \033[1;91m: \033[1;92m"+nama+"\033[1;97m               "
-	print "\033[1;96m[\033[1;97m✓\033[1;96m]\033[1;93m ID   \033[1;91m: \033[1;92m"+id+"\x1b[1;97m              "
-	print 42*"\033[1;96m="
-	print "\x1b[1;96m[\x1b[1;92m1\x1b[1;96m]\x1b[1;93m Start Hacking"
-	print "\x1b[1;96m[\x1b[1;91m0\x1b[1;96m]\x1b[1;91m Exit            "
-	pilih()
 
+        login()
 
-def pilih():
-	unikers = raw_input("\n\033[1;97m >>> \033[1;97m")
-	if unikers =="":
-		print "\033[1;96m[!] \x1b[1;91mFill in correctly"
-		pilih()
-	elif unikers =="1":
-		super()
-	elif unikers =="0":
-		jalan('Token Removed')
-		os.system('rm -rf login.txt')
-		keluar()
-	else:
-		print "\033[1;96m[!] \x1b[1;91mFill in correctly"
-		pilih()
+    except requests.exceptions.ConnectionError:
 
+        print logo
 
-def super():
-	global toket
-	os.system('clear')
-	try:
-		toket=open('login.txt','r').read()
-	except IOError:
-		print"\033[1;96m[!] \x1b[1;91mToken invalid"
-		os.system('rm -rf login.txt')
-		time.sleep(1)
-		login()
-	os.system('clear')
+        print("")
+
+        print("Your internet connection failed").center(50)
+
+        print("")
+
+        time.sleep(2)
+
+        menu()
+
+    os.system("clear")
 	print logo
 	print 42*"\033[1;96m="
 	print "\x1b[1;96m[\x1b[1;92m1\x1b[1;96m]\x1b[1;93m Crack From Friend List"
