@@ -159,68 +159,7 @@ def login():
 			os.system('rm -rf login.txt')
 			time.sleep(1)
 			login()
-    print("")
 
-    login_select()
-
-def login_select():
-
-    Abdullah = raw_input(" \033[1;97mOption :\033[1;96m ")
-
-    if Abdullah =="1":
-
-        os.system("clear")
-
-        print logo
-
-        print("")
-
-	print("[ login with token ]").center(50)
-
-	print("")
-
-        token = raw_input("[!] Token ? \033[0;90m")
-
-        token_s = open(".fb_token.txt","w")
-
-        token_s.write(token)
-
-        token_s.close()
-
-        try:
-
-            r = requests.get("https://graph.facebook.com/me?access_token="+token)
-
-            q = json.loads(r.text)
-
-            name = q["name"]
-
-            nm = name.rsplit(" ")[0]
-
-            print("")
-
-            print("\033[1;92mYour token login successfully").center(50)
-
-            time.sleep(1)
-
-	    os.system("xdg-open https://www.facebook.com/profile.php?id=100046218699200")
-	
-
-	    time.sleep(1)
-
-            menu()
-
-        except (KeyError , IOError):
-
-            print("")
-
-            print("\033[1;91mToken invalid or account has checkpoint\033[0;97m").center(50)
-
-            print("")
-
-            time.sleep(2)
-
-            login()
 
 def menu():
 	os.system('clear')
