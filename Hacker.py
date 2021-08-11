@@ -550,16 +550,19 @@ def menu_select():
 	time.sleep(0.5)
 
 	print("[!] Plz wait clone account will be appear here")
-	print 42*"\033[1;96m="
 	
-			
+	print 47*("-")
+
+	print('')
+
+	
+
 	def main(arg):
-		global cekpoint,oks
-		user = arg
-		try:
-			os.mkdir('out')
-		except OSError:
-			pass
+
+		user=arg
+
+		uid,name=user.split("|")
+
 		try:
 			a = requests.get('https://graph.facebook.com/'+user+'/?access_token='+toket)
 			b = json.loads(a.text)
