@@ -114,7 +114,6 @@ def login():
 		print logo
 		print 42*"\033[1;96m="
 		print('\033[1;96m[☆] \x1b[1;93mLOGIN WITH FACEBOOK \x1b[1;96m[☆]' )
-                print("\033[1;97m[1]\033[1;91m > \033[1;97mlogin using token")
 		id = raw_input('\033[1;96m[+] \x1b[1;93mID/Email \x1b[1;91m: \x1b[1;92m')
 		pwd = raw_input('\033[1;96m[+] \x1b[1;93mPassword \x1b[1;91m: \x1b[1;92m')
 		tik()
